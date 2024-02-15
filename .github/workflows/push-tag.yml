@@ -3,7 +3,7 @@ name: Release Tagging
 on:
   pull_request:
     branches:
-      - "release/*"
+      - main
     types:
       - closed
 
@@ -20,7 +20,7 @@ jobs:
         run: echo "version=${GITHUB_HEAD_REF#release/}" >> $GITHUB_OUTPUT
 
       - name: Tag and push to main
-        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
