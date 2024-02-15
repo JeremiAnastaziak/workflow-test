@@ -23,5 +23,10 @@ jobs:
       - name: Tag and push to main
         if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          git checkout main
+          git pull origin main
           git tag -a ${{ steps.get_release_version.outputs.version }} -m "Release ${{ steps.get_release_version.outputs.version }}"
           git push origin main --tags
