@@ -1,10 +1,9 @@
 name: Release Tagging
 
 on:
-  push:
-    branches:
-      - "release/*"
   pull_request:
+    branches:
+      - main
     types:
       - closed
 
@@ -15,10 +14,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: debug
-        id: debug
-        run: echo $GITHUB_HEAD_REF
 
       - name: Get release version
         id: get_release_version
