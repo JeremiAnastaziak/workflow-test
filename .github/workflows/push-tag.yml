@@ -14,11 +14,11 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Get release version
         id: get_release_version
-        run: echo "version=${GITHUB_HEAD_REF#refs/heads/release/}" >> $GITHUB_OUTPUT
+        run: echo "::set-output name=version::$(echo $GITHUB_HEAD_REF | cut -d'/' -f 4)"
 
       - name: Tag and push to main
         if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -28,5 +28,5 @@ jobs:
 
           git checkout main
           git pull origin main
-          git tag v${{ steps.get_release_version.outputs.version }}
+          git tag -a ${{ steps.get_release_version.outputs.version }} -m "Release ${{ steps.get_release_version.outputs.version }}"
           git push origin main --tags
