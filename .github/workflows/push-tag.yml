@@ -3,7 +3,7 @@ name: Release Tagging
 on:
   pull_request:
     branches:
-      - main
+      - "release/*"
     types:
       - closed
 
