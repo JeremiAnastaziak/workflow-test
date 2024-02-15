@@ -16,6 +16,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: debug
+        id: get_release_version
+        run: echo $GITHUB_HEAD_REF
+
       - name: Get release version
         id: get_release_version
         run: echo "::set-output name=version::$(echo $GITHUB_HEAD_REF | cut -d'/' -f 3)"
