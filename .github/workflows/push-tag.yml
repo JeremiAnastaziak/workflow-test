@@ -28,5 +28,5 @@ jobs:
 
           git checkout main
           git pull origin main
-          git tag -a ${{ steps.get_release_version.outputs.version }} -m "Release ${{ steps.get_release_version.outputs.version }}"
+          git tag v${{ steps.get_release_version.outputs.version }}
           git push origin main --tags
